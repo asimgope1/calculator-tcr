@@ -11,9 +11,9 @@ function App() {
       <div className="w-1/2 pr-2">
         <DetailsForm />
       </div>
-      <div className="lg:w-1/2">
+      {/* <div className="lg:w-1/2">
         <DetailsForm />
-      </div>
+      </div> */}
       </div>
     
     </div>
