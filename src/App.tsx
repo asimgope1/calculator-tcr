@@ -8,9 +8,7 @@ function App() {
     <>
     <div className="bg-white-100 min-h-screen flex flex-col items-center">
        <div className="max-w-md w-full mx-4  flex justify-between">
-      <div className="w-1/2 pr-2">
         <DetailsForm />
-      </div>
       {/* <div className="lg:w-1/2">
         <DetailsForm />
       </div> */}
