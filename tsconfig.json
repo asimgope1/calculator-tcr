@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "@/pages/profile/formSchema.ts", "src/profile/DetailsForm.tsx"  ]
 }
