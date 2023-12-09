@@ -11,7 +11,7 @@ const DetailsForm: React.FC = () => {
   });
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log(data)
   };
 
   const formItems = Object.keys(formSchema.shape);
