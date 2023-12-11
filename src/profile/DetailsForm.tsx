@@ -60,34 +60,26 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
   const renderDropdownMenu = (fieldName: string, options: string[]) => (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div
-          className="flex items-center justify-between w-full"
-        
-        >
-        <Input
-          placeholder="Type here"
-          {...form.register(fieldName)}
-          className=""
-        
-        >
-        </Input>
-        {/* <Button>{form.getValues(fieldName) || "Select Type"}</Button> */}
+        <div className="flex items-center justify-between w-full">
+          <Input
+            placeholder="Type here"
+            {...form.register(fieldName)}
+            className=""
+          ></Input>
+          {/* <Button>{form.getValues(fieldName) || "Select Type"}</Button> */}
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-      className="
+        className="
       w-max"
-      
       >
         {options.map((option, index) => (
           <DropdownMenuItem
-          className="bg-gray-300 justify-start"
-          
+            className="bg-gray-600 justify-start text-white"
             key={index}
             onClick={() => form.setValue(fieldName, option)}
           >
             {option}
-            
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
@@ -109,10 +101,10 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Bungalow Type</FormLabel>
                     <FormControl>
                       <div>
-                      {renderDropdownMenu(
-                        "BungalowType",
-                        Object.values(BungalowType._def.values)
-                      )}
+                        {renderDropdownMenu(
+                          "BungalowType",
+                          Object.values(BungalowType._def.values)
+                        )}
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
@@ -140,12 +132,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("NumberOfFloors")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("NumberOfFloors")}
                         >
@@ -178,12 +172,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("remotenessFactor")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("remotenessFactor")}
                         >
@@ -216,12 +212,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("landRateAtPurchase")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("landRateAtPurchase")}
                         >
@@ -254,12 +252,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                       className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("landValueSellFactor")}
                         >
                           -
                         </Button>
                         <Button
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("landValueSellFactor")}
                         >
@@ -292,12 +292,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("legalCharge")}
                         >
                           -
                         </Button>
                         <Button
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("legalCharge")}
                         >
@@ -330,12 +332,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("fillingRate")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("fillingRate")}
                         >
@@ -368,6 +372,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() =>
                             handleDecrement("projectManagementCost")
@@ -376,6 +381,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() =>
                             handleIncrement("projectManagementCost")
@@ -410,12 +416,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -438,11 +446,10 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>facing Type</FormLabel>
                     <FormControl>
                       <div>
-                    
-                      {renderDropdownMenu(
-                        "facingType",
-                        Object.values(facingType._def.values)
-                      )}
+                        {renderDropdownMenu(
+                          "facingType",
+                          Object.values(facingType._def.values)
+                        )}
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
@@ -472,12 +479,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -511,12 +520,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -549,12 +560,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -588,12 +601,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -626,12 +641,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -665,12 +682,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -704,12 +723,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -743,12 +764,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -772,10 +795,10 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Corner Facing</FormLabel>
                     <FormControl>
                       <div>
-                      {renderDropdownMenu(
-                        "cornerFacing",
-                        Object.values(cornerFacing._def.values)
-                      )}
+                        {renderDropdownMenu(
+                          "cornerFacing",
+                          Object.values(cornerFacing._def.values)
+                        )}
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
@@ -804,12 +827,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                         />
 
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
+                         className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
