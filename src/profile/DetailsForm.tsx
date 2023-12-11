@@ -34,6 +34,10 @@ interface DetailsFormProps {
 // });
 
 const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
+
+
+
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
@@ -127,19 +131,20 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("NumberOfFloors");
+                            form.trigger("NumberOfFloors"); 
                           }}
+                          onBlur={() => form.trigger("NumberOfFloors")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("NumberOfFloors")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("NumberOfFloors")}
                         >
@@ -148,7 +153,10 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.NumberOfFloors?.message ?? ''}
+
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -162,24 +170,24 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Remoteness Factor</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("remotenessFactor");
+                            form.trigger("remotenessFactor"); 
                           }}
+                          onBlur={() => form.trigger("remotenessFactor")} 
                         />
-
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("remotenessFactor")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("remotenessFactor")}
                         >
@@ -188,7 +196,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.remotenessFactor?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -202,24 +212,25 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Land Rate at Purchase</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("landRateAtPurchase");
+                            form.trigger("landRateAtPurchase"); 
                           }}
+                          onBlur={() => form.trigger("landRateAtPurchase")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("landRateAtPurchase")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("landRateAtPurchase")}
                         >
@@ -228,7 +239,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.landRateAtPurchase?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -242,17 +255,18 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Land value sell factor</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("landValueSellFactor");
+                            form.trigger("landValueSellFactor"); 
                           }}
+                          onBlur={() => form.trigger("landValueSellFactor")} 
                         />
 
                         <Button
-                       className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("landValueSellFactor")}
                         >
@@ -268,7 +282,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.landValueSellFactor?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -282,13 +298,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Legal Charge</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("legalCharge");
+                            form.trigger("legalCharge"); 
                           }}
+                          onBlur={() => form.trigger("legalCharge")} 
                         />
 
                         <Button
@@ -308,7 +325,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.legalCharge?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -322,24 +341,25 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Filling Rate</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("fillingRate");
+                            form.trigger("fillingRate"); 
                           }}
+                          onBlur={() => form.trigger("fillingRate")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("fillingRate")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("fillingRate")}
                         >
@@ -348,7 +368,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.fillingRate?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -362,17 +384,18 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Project Management Cost</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("projectManagementCost");
+                            form.trigger("projectManagementCost"); 
                           }}
+                          onBlur={() => form.trigger("projectManagementCost")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() =>
                             handleDecrement("projectManagementCost")
@@ -381,7 +404,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() =>
                             handleIncrement("projectManagementCost")
@@ -392,7 +415,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.projectManagementCost?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -406,24 +431,25 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Unit Filling Depth</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("unitFillingDepth");
+                            form.trigger("unitFillingDepth"); 
                           }}
+                          onBlur={() => form.trigger("unitFillingDepth")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleDecrement("unitFillingDepth")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
                           onClick={() => handleIncrement("unitFillingDepth")}
                         >
@@ -432,7 +458,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.unitFillingDepth?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -453,130 +481,141 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.facingType?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
             </div>
           </div>
-          <div className="flex  flex-grow flex-col space-y-4 mr-10 ">
+          <div className="flex  flex-grow flex-col space-y-4 ml-10 ">
+            <div className="flex h-30 flex-col space-y-4 items-start justify-start">
+              <FormField
+                control={form.control}
+                name="totalLandArea"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Total Land Area (Sq. Ft.)</FormLabel>
+                    <FormControl>
+                      <div className="flex ">
+                      <Input
+                          placeholder="Type here"
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e);
+                            form.trigger("totalLandArea"); 
+                          }}
+                          onBlur={() => form.trigger("totalLandArea")} 
+                        />
+
+                        <Button
+                          className="bg-gray-300 ml-2"
+                          type="button"
+                          onClick={() => handleDecrement("totalLandArea")}
+                        >
+                          -
+                        </Button>
+                        <Button
+                          className="bg-gray-300 ml-2"
+                          type="button"
+                          onClick={() => handleIncrement("totalLandArea")}
+                        >
+                          +
+                        </Button>
+                      </div>
+                    </FormControl>
+                    <FormDescription></FormDescription>
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.totalLandArea?.message ?? ''}
+                    </FormMessage>
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <div className="flex h-30 flex-col space-y-4 items-start justify-start">
               <FormField
                 control={form.control}
                 name="totalBuiltUpArea"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Total Land Area (Sq. Ft.)</FormLabel>
+                    <FormLabel>Total BuiltUp Area (Sq. Ft.)</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("totalBuiltUpArea");
+                            form.trigger("totalBuiltUpArea"); 
                           }}
+                          onBlur={() => form.trigger("totalBuiltUpArea")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
+                          onClick={() => handleDecrement("totalBuiltUpArea")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
+                          onClick={() => handleIncrement("totalBuiltUpArea")}
                         >
                           +
                         </Button>
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.totalBuiltUpArea?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
             </div>
-
             <div className="flex h-30 flex-col space-y-4 items-start justify-start">
               <FormField
                 control={form.control}
                 name="baseBuiltUpRate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Total BuiltUp Area (Sq. Ft.)</FormLabel>
-                    <FormControl>
-                      <div className="flex ">
-                        <Input
-                          placeholder="Type here"
-                          {...field}
-                          onChange={(e) => {
-                            field.onChange(e);
-                            form.trigger("baseBuiltUpRate");
-                          }}
-                        />
-
-                        <Button
-                         className="bg-gray-300 ml-2"
-                          type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
-                        >
-                          -
-                        </Button>
-                        <Button
-                         className="bg-gray-300 ml-2"
-                          type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
-                        >
-                          +
-                        </Button>
-                      </div>
-                    </FormControl>
-                    <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex h-30 flex-col space-y-4 items-start justify-start">
-              <FormField
-                control={form.control}
-                name="currentLandRate"
-                render={({ field }) => (
-                  <FormItem>
                     <FormLabel>Base BuiltUp Rate</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("currentLandRate");
+                            form.trigger("baseBuiltUpRate"); 
                           }}
+                          onBlur={() => form.trigger("baseBuiltUpRate")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
+                          onClick={() => handleDecrement("baseBuiltUpRate")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
+                          onClick={() => handleIncrement("baseBuiltUpRate")}
                         >
                           +
                         </Button>
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.baseBuiltUpRate?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -591,33 +630,36 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Current land rate as per market</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("currentLandRate");
+                            form.trigger("currentLandRate"); 
                           }}
+                          onBlur={() => form.trigger("currentLandRate")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
+                          onClick={() => handleDecrement("currentLandRate")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
+                          onClick={() => handleIncrement("currentLandRate")}
                         >
                           +
                         </Button>
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                    {form.formState.errors?.currentLandRate?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -631,33 +673,36 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Development Charge</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("developmentCharge");
+                            form.trigger("developmentCharge"); 
                           }}
+                          onBlur={() => form.trigger("developmentCharge")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
+                          onClick={() => handleDecrement("developmentCharge")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
+                          onClick={() => handleIncrement("developmentCharge")}
                         >
                           +
                         </Button>
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                      {form.formState.errors?.developmentCharge?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -672,33 +717,36 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Adjustment Factor</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("adjustmentFactor");
+                            form.trigger("adjustmentFactor"); 
                           }}
+                          onBlur={() => form.trigger("adjustmentFactor")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
+                          onClick={() => handleDecrement("adjustmentFactor")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
+                          onClick={() => handleIncrement("adjustmentFactor")}
                         >
                           +
                         </Button>
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                      {form.formState.errors?.adjustmentFactor?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -713,33 +761,36 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Corner Factor</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("cornerFactor");
+                            form.trigger("cornerFactor"); 
                           }}
+                          onBlur={() => form.trigger("cornerFactor")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
+                          onClick={() => handleDecrement("cornerFactor")}
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
+                          onClick={() => handleIncrement("cornerFactor")}
                         >
                           +
                         </Button>
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                      {form.formState.errors?.cornerFactor?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -754,33 +805,40 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Unit Adjustment Factor</FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("unitAdjustmentFactor");
+                            form.trigger("unitAdjustmentFactor"); 
                           }}
+                          onBlur={() => form.trigger("unitAdjustmentFactor")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
+                          onClick={() =>
+                            handleDecrement("unitAdjustmentFactor")
+                          }
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
+                          onClick={() =>
+                            handleIncrement("unitAdjustmentFactor")
+                          }
                         >
                           +
                         </Button>
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                      {form.formState.errors?.unitAdjustmentFactor?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -802,7 +860,9 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                      {form.formState.errors?.cornerFacing?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
@@ -817,33 +877,40 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
                     <FormLabel>Additional Semi Finished </FormLabel>
                     <FormControl>
                       <div className="flex ">
-                        <Input
+                      <Input
                           placeholder="Type here"
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
-                            form.trigger("additionalSemiFinishedBuiltup");
+                            form.trigger("additionalSemiFinishedBuiltup"); 
                           }}
+                          onBlur={() => form.trigger("additionalSemiFinishedBuiltup")} 
                         />
 
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleDecrement("unitFillingDepth")}
+                          onClick={() =>
+                            handleDecrement("additionalSemiFinishedBuiltup")
+                          }
                         >
                           -
                         </Button>
                         <Button
-                         className="bg-gray-300 ml-2"
+                          className="bg-gray-300 ml-2"
                           type="button"
-                          onClick={() => handleIncrement("unitFillingDepth")}
+                          onClick={() =>
+                            handleIncrement("additionalSemiFinishedBuiltup")
+                          }
                         >
                           +
                         </Button>
                       </div>
                     </FormControl>
                     <FormDescription></FormDescription>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-red-600" >
+                      {form.formState.errors?.additionalSemiFinishedBuiltup?.message ?? ''}
+                    </FormMessage>
                   </FormItem>
                 )}
               />
