@@ -8,7 +8,7 @@ function App() {
         <DetailsForm onSubmit={() => console.log("k")} />
       </div>
 
-      <div className="bg-gray-400 text-white p-4  items-center justify-center ">working</div>
+     
     </>
   );
 }
