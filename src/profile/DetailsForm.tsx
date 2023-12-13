@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "../@/components/ui/button";
@@ -37,6 +37,29 @@ interface DetailsFormProps {
 
 const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
 
+    const [numberOfFloors, setNumberOfFloors] = React.useState("1");
+    const[remotenessFactor,setremotenessfactor]=useState('')
+    const[landRateAtPurchase,setlandRateAtPurchase]=useState('')
+    const[landValueSellFactor,setlandValueSellFactor]=useState('')
+    const[legalCharge,setlegalCharge]=useState('')
+    const[fillingRate,setfillingRate]=useState('')
+    const[projectManagementCost,setprojectManagementCost]=useState('')
+    const[unitFillingDepth,setunitFillingDepth]=useState('')
+    const[totalLandArea,settotalLandArea]=useState('')
+    const[totalBuiltUpArea,settotalBuiltUpArea]=useState('')
+    const[baseBuiltUpRate,setbaseBuiltUpRate]=useState('')
+    const[currentLandRate,setcurrentLandRate]=useState('')
+    const[developmentCharge,setdevelopmentCharge]=useState('')
+    const[adjustmentFactor,setadjustmentFactor]=useState('')
+    const[cornerFactor,setcornerFactor]=useState('')
+    const[unitAdjustmentFactor,setunitAdjustmentFactor]=useState('')
+    const[additionalSemiFinishedBuiltup,setadditionalSemiFinishedBuiltup]=useState('')
+    const[totalLandPrice,settotalLandPrice]=useState('')
+    const[subTotal,setsubTotal]=useState('')
+
+
+
+
   
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -59,6 +82,29 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
     form.setValue(fieldName, decrementedValue.toString());
    
   };
+
+  useEffect(() => {
+    const fields = form.getValues();
+    console.log("object",fields)
+    setNumberOfFloors(fields.NumberOfFloors)
+    setremotenessfactor(fields.remotenessFactor)
+    setlandRateAtPurchase(fields.landRateAtPurchase)
+    setlandValueSellFactor(fields.landValueSellFactor)
+    setlegalCharge(fields.legalCharge)
+    setfillingRate(fields.fillingRate)
+    setprojectManagementCost(fields.projectManagementCost)
+    setunitFillingDepth(fields.unitFillingDepth)
+    settotalLandArea(fields.totalLandArea)
+    settotalBuiltUpArea(fields.totalBuiltUpArea)
+    setbaseBuiltUpRate(fields.baseBuiltUpRate)
+    setcurrentLandRate(fields.currentLandRate)
+    setdevelopmentCharge(fields.developmentCharge)
+    setadjustmentFactor(fields.adjustmentFactor)
+    setcornerFactor(fields.cornerFactor)
+    setunitAdjustmentFactor(fields.unitAdjustmentFactor)
+    setadditionalSemiFinishedBuiltup(fields.additionalSemiFinishedBuiltup)
+
+  }, [form]);
 
   const { BungalowType, facingType, cornerFacing } = formSchema.shape;
 
@@ -94,6 +140,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+        <div>{numberOfFloors}</div>
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 md:grid-cols-3 mt-5 ml-5 mr-5">
           <div className="flex flex-col space-y-4 items-start justify-start">
             <FormField
@@ -934,7 +981,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
           <div className="flex justify-between w-full mt-4 mb-4">
             <div className="w-1/2 ml-10">
               <div className="flex flex-col justify-between">
-                <div className="text-gray-600">Land Price :{}</div>
+                <div className="text-gray-600">Land Price :{landValueSellFactor}</div>
                 <div className="text-gray-600">Sub Total :{}</div>
                 <div className="text-gray-600">Facing Charge : {}</div>
                 <div className="text-gray-600">Remoteness Charge : {}</div>
