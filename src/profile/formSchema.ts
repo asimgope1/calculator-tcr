@@ -47,8 +47,8 @@ export const formSchema = z.object({
   currentLandRate: z.string({ errorMap: (issue, ctx) => ({ message: 'Current Land Rate must be at least 1000.' }) }),
   developmentCharge: z.string({ errorMap: (issue, ctx) => ({ message: 'Development Charge must be at least 1.' }) }),
   adjustmentFactor: z.string().min(0).max(1, { message: 'Adjustment Factor must be in between 0 and 1.' }),
-  cornerFactor: z.number().min(0).max(1, { message: 'Corner Factor must be in between 0 and 1.' }),
-  unitAdjustmentFactor: z.number().min(0).max(1, { message: 'Unit Adjustment Factor must be in between 0 and 1.' }),
+  cornerFactor: z.string().min(0).max(1, { message: 'Corner Factor must be in between 0 and 1.' }),
+  unitAdjustmentFactor: z.string().min(0).max(1, { message: 'Unit Adjustment Factor must be in between 0 and 1.' }),
   cornerFacing: z.enum(['Yes', 'No'], { errorMap: (issue, ctx) => ({ message: '' }) }),
   additionalSemiFinishedBuiltup: z.number({ errorMap: (issue, ctx) => ({ message: 'Additional Semi Finished Builtup Area must be at least 50.' }) }),
 });

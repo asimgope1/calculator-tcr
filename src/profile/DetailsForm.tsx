@@ -34,7 +34,10 @@ interface DetailsFormProps {
 
 
 
-const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
+
+const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
+
+  
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
@@ -54,6 +57,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
     const decrementedValue =
       !isNaN(parsedValue) && parsedValue > 0 ? parsedValue - 1 : 0;
     form.setValue(fieldName, decrementedValue.toString());
+   
   };
 
   const { BungalowType, facingType, cornerFacing } = formSchema.shape;
@@ -913,14 +917,22 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
             Reset
           </Button>
 
-          <Button type="submit" className="bg-green-500">
+          <Button type="submit" className="bg-green-500"
+          onClick={()=>{
+            form.getValues(
+              "BungalowType "
+            )
+          }}          >
             Submit
+            
           </Button>
+
+ 
         </div>
 
-        <div className="w-full flex items-center bg-gray-100 border-t-2 border-gray-200">
+        <div className="w-full flex items-center  bg-gray-100 border-t-2 border-gray-200">
           <div className="flex justify-between w-full mt-4 mb-4">
-            <div className="w-1/2">
+            <div className="w-1/2 ml-10">
               <div className="flex flex-col justify-between">
                 <div className="text-gray-600">Land Price :{}</div>
                 <div className="text-gray-600">Sub Total :{}</div>
@@ -948,8 +960,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
         </div>
 
         <div
-          className="w-full flex items-center bg-gray-100 border-t-2 border-gray-200"
-          style={{ height: "100px" }}
+          className="w-full flex items-center  bg-gray-100 border-t-2 border-gray-200" 
+        
         >
           {" "}
           Grand Total:
