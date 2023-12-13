@@ -76,19 +76,33 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
   }, [form]);
 
   const handleIncrement = (fieldName: string) => {
-    const currentValue = form.getValues(fieldName);
-    const parsedValue = parseInt(currentValue, 10);
-    const incrementedValue = isNaN(parsedValue) ? 0 : parsedValue + 1;
+    let currentValue = parseFloat(form.getValues(fieldName));
+    currentValue = isNaN(currentValue) ? 0 : currentValue;
+  
+    let incrementedValue = currentValue;
+    if (fieldName === 'remotenessFactor' || fieldName === 'landValueSellFactor' || fieldName === 'adjustmentFactor' || fieldName === 'unitAdjustmentFactor') {
+      incrementedValue = currentValue >= 1 ? 1 : parseFloat((currentValue + 0.1).toFixed(1));
+    } else {
+      incrementedValue = currentValue + 1;
+    }
     form.setValue(fieldName, incrementedValue.toString());
   };
-
+  
   const handleDecrement = (fieldName: string) => {
-    const currentValue = form.getValues(fieldName);
-    const parsedValue = parseInt(currentValue, 10);
-    const decrementedValue =
-      !isNaN(parsedValue) && parsedValue > 0 ? parsedValue - 1 : 0;
+    let currentValue = parseFloat(form.getValues(fieldName));
+    currentValue = isNaN(currentValue) ? 0 : currentValue;
+  
+    let decrementedValue = currentValue;
+    if (fieldName === 'remotenessFactor' || fieldName === 'landValueSellFactor' || fieldName === 'adjustmentFactor' || fieldName === 'unitAdjustmentFactor') {
+      decrementedValue = currentValue <= 0 ? 0 : parseFloat((currentValue - 0.1).toFixed(1));
+    } else {
+      decrementedValue = currentValue <= 0 ? 0 : currentValue - 1;
+    }
     form.setValue(fieldName, decrementedValue.toString());
   };
+  
+
+
   const calculateLandPrice = (Type: string): number | string => {
     const basePrice =
       isNaN(parseInt(totalLandArea)) || isNaN(parseFloat(currentLandRate))
