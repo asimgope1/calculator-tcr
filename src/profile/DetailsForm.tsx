@@ -60,6 +60,21 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
       Object.keys(formSchema.shape).map((key) => [key, ""])
     ),
   });
+
+  useEffect(() => {
+    const calculateValues = () => {
+      const landPrice = calculateLandPrice(form.getValues("BungalowType"));
+      const subTotal = calculateSubTotal();
+      const facingCharge = calculateFacingCharge();
+
+      settotalLandPrice(String(landPrice));
+      setsubTotal(String(subTotal));
+      calculateGrandTotal();
+    };
+
+    calculateValues();
+  }, [form]);
+
   const handleIncrement = (fieldName: string) => {
     const currentValue = form.getValues(fieldName);
     const parsedValue = parseInt(currentValue, 10);
@@ -74,13 +89,49 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
       !isNaN(parsedValue) && parsedValue > 0 ? parsedValue - 1 : 0;
     form.setValue(fieldName, decrementedValue.toString());
   };
+  const calculateLandPrice = (Type: string): number | string => {
+    const basePrice =
+      isNaN(parseInt(totalLandArea)) || isNaN(parseFloat(currentLandRate))
+        ? 0
+        : parseInt(totalLandArea) * parseFloat(currentLandRate);
 
-  const calculateLandPrice = (): number | string => {
-    return isNaN(parseInt(totalLandArea)) || isNaN(parseFloat(currentLandRate))
-      ? ""
-      : parseInt(totalLandArea) * parseFloat(currentLandRate);
+    let adjustedPrice = basePrice;
+    switch (Type) {
+      case "Raw":
+        adjustedPrice += 1000;
+        break;
+      case "Economy":
+        adjustedPrice += 1200;
+        break;
+      case "Delux":
+        adjustedPrice += 1400;
+        break;
+      default:
+        break;
+    }
+
+    return adjustedPrice;
   };
 
+  const calculateGrandTotal = (): number | string => {
+    const subTotalValue = parseFloat(subTotal);
+    const projectAdjustmentChargeValue = parseFloat(developmentCharge);
+    const unitAdjustmentFactorValue = parseFloat(unitAdjustmentFactor);
+
+    if (
+      !isNaN(subTotalValue) &&
+      !isNaN(projectAdjustmentChargeValue) &&
+      !isNaN(unitAdjustmentFactorValue)
+    ) {
+      return (
+        subTotalValue + projectAdjustmentChargeValue + unitAdjustmentFactorValue
+      );
+    } else {
+      return "Invalid calculation";
+    }
+  };
+
+  const grandTotal = calculateGrandTotal();
   const calculateSubTotal = (): number | string => {
     return isNaN(parseInt(totalLandArea)) ||
       isNaN(parseFloat(currentLandRate)) ||
@@ -126,38 +177,32 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
       : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
   };
 
-  const CornerCharge=(): number |string =>{
-
-return isNaN(parseInt(totalBuiltUpArea)) ||
-isNaN(parseFloat(baseBuiltUpRate))
-  ? ""
-  : parseInt(totalBuiltUpArea) *
-    parseFloat(baseBuiltUpRate) *
-    0.05
-    
-  }
-  const FillingCharge=(): number |string =>{
+  const CornerCharge = (): number | string => {
     return isNaN(parseInt(totalBuiltUpArea)) ||
-    isNaN(parseFloat(baseBuiltUpRate))
+      isNaN(parseFloat(baseBuiltUpRate))
       ? ""
-      : parseInt(totalBuiltUpArea) *
-        parseFloat(baseBuiltUpRate) *
-        0.05
-
-  }
-  const ProjectManagementCost =(): number |string =>{
+      : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
+  };
+  const FillingCharge = (): number | string => {
     return isNaN(parseInt(totalBuiltUpArea)) ||
-    isNaN(parseFloat(baseBuiltUpRate))
+      isNaN(parseFloat(baseBuiltUpRate))
       ? ""
-      : parseInt(totalBuiltUpArea) *
-        parseFloat(baseBuiltUpRate) *
-        0.05
-
-  }
+      : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
+  };
+  const ProjectManagementCost = (): number | string => {
+    return isNaN(parseInt(totalBuiltUpArea)) ||
+      isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
+  };
 
   const { BungalowType, facingType, cornerFacing } = formSchema.shape;
 
-  const renderDropdownMenu = (fieldName: string, options: string[]) => (
+  const renderDropdownMenu = (
+    fieldName: string,
+    options: string[],
+    updateCornerFactor: (selectedOption: string) => void
+  ) => (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <div className="flex items-center justify-between w-full">
@@ -169,15 +214,15 @@ isNaN(parseFloat(baseBuiltUpRate))
           {/* <Button>{form.getValues(fieldName) || "Select Type"}</Button> */}
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className="
-      w-max"
-      >
+      <DropdownMenuContent className="w-max">
         {options.map((option, index) => (
           <DropdownMenuItem
             className="bg-gray-600 justify-start text-white"
             key={index}
-            onClick={() => form.setValue(fieldName, option)}
+            onClick={() => {
+              form.setValue(fieldName, option);
+              updateCornerFactor(option); 
+            }}
           >
             {option}
           </DropdownMenuItem>
@@ -196,17 +241,31 @@ isNaN(parseFloat(baseBuiltUpRate))
               name="BungalowType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Bungalow Type</FormLabel>
+                  <FormLabel>Bunglow Type</FormLabel>
                   <FormControl>
                     <div>
                       {renderDropdownMenu(
                         "BungalowType",
-                        Object.values(BungalowType._def.values)
+                        Object.values(BungalowType._def.values),
+                        (selectedOption) => {
+                          const value =
+                            selectedOption === "Raw"
+                              ? "1000"
+                              : selectedOption === "Economy"
+                              ? "1200"
+                              : selectedOption === "Deluxe"
+                              ? "1400"
+                              : "0";
+
+                          form.setValue("Type", value);
+                        }
                       )}
                     </div>
                   </FormControl>
                   <FormDescription></FormDescription>
-                  <FormMessage className="text-red-600" />
+                  <FormMessage className="text-red-600">
+                    {form.formState.errors?.cornerFacing?.message ?? ""}
+                  </FormMessage>
                 </FormItem>
               )}
             />
@@ -561,18 +620,23 @@ isNaN(parseFloat(baseBuiltUpRate))
               name="facingType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>facing Type</FormLabel>
+                  <FormLabel>Facing type</FormLabel>
                   <FormControl>
                     <div>
                       {renderDropdownMenu(
                         "facingType",
-                        Object.values(facingType._def.values)
+                        Object.values(facingType._def.values),
+                        (selectedOption) => {
+                          const newCornerFactor =
+                            selectedOption === "Yes" ? "1" : "0";
+                          // form.setValue('cornerFactor', newCornerFactor)
+                        }
                       )}
                     </div>
                   </FormControl>
                   <FormDescription></FormDescription>
                   <FormMessage className="text-red-600">
-                    {form.formState.errors?.facingType?.message ?? ""}
+                    {form.formState.errors?.cornerFacing?.message ?? ""}
                   </FormMessage>
                 </FormItem>
               )}
@@ -934,12 +998,17 @@ isNaN(parseFloat(baseBuiltUpRate))
               name="cornerFacing"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Corner Facing</FormLabel>
+                  <FormLabel>Corner Facingg</FormLabel>
                   <FormControl>
                     <div>
                       {renderDropdownMenu(
                         "cornerFacing",
-                        Object.values(cornerFacing._def.values)
+                        Object.values(cornerFacing._def.values),
+                        (selectedOption) => {
+                          const newCornerFactor =
+                            selectedOption === "Yes" ? "1" : "0";
+                          form.setValue("cornerFactor", newCornerFactor);
+                        }
                       )}
                     </div>
                   </FormControl>
@@ -1049,7 +1118,8 @@ isNaN(parseFloat(baseBuiltUpRate))
             <div className="w-1/2 ml-10">
               <div className="flex flex-col justify-between">
                 <div className="text-gray-600">
-                  Land Price: {calculateLandPrice()}
+                  Land Price:{" "}
+                  {calculateLandPrice(form.getValues("BungalowType"))}
                 </div>
 
                 <div className="text-gray-600">
@@ -1080,24 +1150,15 @@ isNaN(parseFloat(baseBuiltUpRate))
                 </div>
 
                 <div className="text-gray-600">
-                  Corner Charge :
-                  {
-                    CornerCharge()
-                  }
+                  Corner Charge :{CornerCharge()}
                 </div>
 
                 <div className="text-gray-600">
-                  Filling Charge :
-                  {
-                    FillingCharge()
-                  }
+                  Filling Charge :{FillingCharge()}
                 </div>
 
                 <div className="text-gray-600">
-                  Project Management Cost :
-                  {
-                    ProjectManagementCost()
-                  }
+                  Project Management Cost :{ProjectManagementCost()}
                 </div>
               </div>
             </div>
@@ -1106,7 +1167,7 @@ isNaN(parseFloat(baseBuiltUpRate))
 
         <div className="w-full flex items-center  bg-gray-100 border-t-2 border-gray-200">
           Grand Total:
-          {totalLandPrice}
+          {calculateGrandTotal()}
         </div>
       </form>
     </Form>
