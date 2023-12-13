@@ -127,7 +127,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
         subTotalValue + projectAdjustmentChargeValue + unitAdjustmentFactorValue
       );
     } else {
-      return "Invalid calculation";
+      return "";
     }
   };
 
