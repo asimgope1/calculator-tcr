@@ -32,35 +32,28 @@ interface DetailsFormProps {
 //   }),
 // });
 
+const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
+  const [numberOfFloors, setNumberOfFloors] = React.useState("1");
+  const [remotenessFactor, setremotenessfactor] = useState("");
+  const [landRateAtPurchase, setlandRateAtPurchase] = useState("");
+  const [landValueSellFactor, setlandValueSellFactor] = useState("");
+  const [legalCharge, setlegalCharge] = useState("");
+  const [fillingRate, setfillingRate] = useState("");
+  const [projectManagementCost, setprojectManagementCost] = useState("");
+  const [unitFillingDepth, setunitFillingDepth] = useState("");
+  const [totalLandArea, settotalLandArea] = useState("");
+  const [totalBuiltUpArea, settotalBuiltUpArea] = useState("");
+  const [baseBuiltUpRate, setbaseBuiltUpRate] = useState("");
+  const [currentLandRate, setcurrentLandRate] = useState("");
+  const [developmentCharge, setdevelopmentCharge] = useState("");
+  const [adjustmentFactor, setadjustmentFactor] = useState("");
+  const [cornerFactor, setcornerFactor] = useState("");
+  const [unitAdjustmentFactor, setunitAdjustmentFactor] = useState("");
+  const [additionalSemiFinishedBuiltup, setadditionalSemiFinishedBuiltup] =
+    useState("");
+  const [totalLandPrice, settotalLandPrice] = useState("");
+  const [subTotal, setsubTotal] = useState("");
 
-
-
-const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
-
-    const [numberOfFloors, setNumberOfFloors] = React.useState("1");
-    const[remotenessFactor,setremotenessfactor]=useState('')
-    const[landRateAtPurchase,setlandRateAtPurchase]=useState('')
-    const[landValueSellFactor,setlandValueSellFactor]=useState('')
-    const[legalCharge,setlegalCharge]=useState('')
-    const[fillingRate,setfillingRate]=useState('')
-    const[projectManagementCost,setprojectManagementCost]=useState('')
-    const[unitFillingDepth,setunitFillingDepth]=useState('')
-    const[totalLandArea,settotalLandArea]=useState('')
-    const[totalBuiltUpArea,settotalBuiltUpArea]=useState('')
-    const[baseBuiltUpRate,setbaseBuiltUpRate]=useState('')
-    const[currentLandRate,setcurrentLandRate]=useState('')
-    const[developmentCharge,setdevelopmentCharge]=useState('')
-    const[adjustmentFactor,setadjustmentFactor]=useState('')
-    const[cornerFactor,setcornerFactor]=useState('')
-    const[unitAdjustmentFactor,setunitAdjustmentFactor]=useState('')
-    const[additionalSemiFinishedBuiltup,setadditionalSemiFinishedBuiltup]=useState('')
-    const[totalLandPrice,settotalLandPrice]=useState('')
-    const[subTotal,setsubTotal]=useState('')
-
-
-
-
-  
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: Object.fromEntries(
@@ -80,31 +73,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
     const decrementedValue =
       !isNaN(parsedValue) && parsedValue > 0 ? parsedValue - 1 : 0;
     form.setValue(fieldName, decrementedValue.toString());
-   
   };
-
-  useEffect(() => {
-    const fields = form.getValues();
-    console.log("object",fields)
-    setNumberOfFloors(fields.NumberOfFloors)
-    setremotenessfactor(fields.remotenessFactor)
-    setlandRateAtPurchase(fields.landRateAtPurchase)
-    setlandValueSellFactor(fields.landValueSellFactor)
-    setlegalCharge(fields.legalCharge)
-    setfillingRate(fields.fillingRate)
-    setprojectManagementCost(fields.projectManagementCost)
-    setunitFillingDepth(fields.unitFillingDepth)
-    settotalLandArea(fields.totalLandArea)
-    settotalBuiltUpArea(fields.totalBuiltUpArea)
-    setbaseBuiltUpRate(fields.baseBuiltUpRate)
-    setcurrentLandRate(fields.currentLandRate)
-    setdevelopmentCharge(fields.developmentCharge)
-    setadjustmentFactor(fields.adjustmentFactor)
-    setcornerFactor(fields.cornerFactor)
-    setunitAdjustmentFactor(fields.unitAdjustmentFactor)
-    setadditionalSemiFinishedBuiltup(fields.additionalSemiFinishedBuiltup)
-
-  }, [form]);
 
   const { BungalowType, facingType, cornerFacing } = formSchema.shape;
 
@@ -140,7 +109,6 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
-        <div>{numberOfFloors}</div>
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 md:grid-cols-3 mt-5 ml-5 mr-5">
           <div className="flex flex-col space-y-4 items-start justify-start">
             <FormField
@@ -964,54 +932,159 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit}) => {
             Reset
           </Button>
 
-          <Button type="submit" className="bg-green-500"
-          onClick={()=>{
-            form.getValues(
-              "BungalowType "
-            )
-          }}          >
+          <Button
+            type="submit"
+            className="bg-green-500"
+            onClick={form.handleSubmit((data) => {
+              console.log("------", data);
+              setNumberOfFloors(data.NumberOfFloors);
+              setremotenessfactor(data.remotenessFactor);
+              setlandRateAtPurchase(data.landRateAtPurchase);
+              setlandValueSellFactor(data.landValueSellFactor);
+              setlegalCharge(data.legalCharge);
+              setfillingRate(data.fillingRate);
+              setprojectManagementCost(data.projectManagementCost);
+              setunitFillingDepth(data.unitFillingDepth);
+              settotalLandArea(data.totalLandArea);
+              settotalBuiltUpArea(data.totalBuiltUpArea);
+              setbaseBuiltUpRate(data.baseBuiltUpRate);
+              setcurrentLandRate(data.currentLandRate);
+              setdevelopmentCharge(data.developmentCharge);
+              setadjustmentFactor(data.adjustmentFactor);
+              setcornerFactor(data.cornerFactor);
+              setunitAdjustmentFactor(data.unitAdjustmentFactor);
+              setadditionalSemiFinishedBuiltup(
+                data.additionalSemiFinishedBuiltup
+              );
+              settotalLandPrice(data.totalLandPrice);
+              setsubTotal(data.subTotal);
+            })}
+          >
             Submit
-            
           </Button>
-
- 
         </div>
 
         <div className="w-full flex items-center  bg-gray-100 border-t-2 border-gray-200">
           <div className="flex justify-between w-full mt-4 mb-4">
             <div className="w-1/2 ml-10">
               <div className="flex flex-col justify-between">
-                <div className="text-gray-600">Land Price :{landValueSellFactor}</div>
-                <div className="text-gray-600">Sub Total :{}</div>
-                <div className="text-gray-600">Facing Charge : {}</div>
-                <div className="text-gray-600">Remoteness Charge : {}</div>
                 <div className="text-gray-600">
-                  Project Adjustment Charge :{}
+                  Land Price:{" "}
+                  {isNaN(parseInt(totalLandArea)) ||
+                  isNaN(parseFloat(currentLandRate))
+                    ? ""
+                    : parseInt(totalLandArea) * parseFloat(currentLandRate)}
+                </div>
+
+                <div className="text-gray-600">
+                  Sub Total :
+                  {isNaN(parseInt(totalLandArea)) ||
+                  isNaN(parseFloat(currentLandRate)) ||
+                  isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalLandArea) * parseFloat(currentLandRate) +
+                      parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate)}
+                </div>
+
+                <div className="text-gray-600">
+                  Facing Charge :{" "}
+                  {isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalBuiltUpArea) *
+                      parseFloat(baseBuiltUpRate) *
+                      0.05}
+                </div>
+
+                <div className="text-gray-600">
+                  Remoteness Charge :{" "}
+                  {isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalBuiltUpArea) *
+                      parseFloat(baseBuiltUpRate) *
+                      0.05}
+                </div>
+
+                <div className="text-gray-600">
+                  Project Adjustment Charge :{" "}
+                  {isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalBuiltUpArea) *
+                      parseFloat(baseBuiltUpRate) *
+                      0.05}
                 </div>
               </div>
             </div>
             <div className="w-1/2">
               <div className="flex flex-col justify-between">
-                <div className="text-gray-600">Unit Adjustment Factor :{}</div>
+                <div className="text-gray-600">
+                  Unit Adjustment Factor :{" "}
+                  {isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalBuiltUpArea) *
+                      parseFloat(baseBuiltUpRate) *
+                      0.05}
+                </div>
 
-                <div className="text-gray-600">Building Price :{}</div>
+                <div className="text-gray-600">
+                  Building Price :
+                {
+                  isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalBuiltUpArea) *
+                      parseFloat(baseBuiltUpRate) *
+                      0.05
+                }
+                </div>
 
-                <div className="text-gray-600">Corner Charge :{}</div>
+                <div className="text-gray-600">
+                  Corner Charge :
+                 {
+                  isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalBuiltUpArea) *
+                      parseFloat(baseBuiltUpRate) *
+                      0.05
+                 }
+                </div>
 
-                <div className="text-gray-600">Filling Charge :{}</div>
+                <div className="text-gray-600">
+                  Filling Charge :
+                 {
+                  isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalBuiltUpArea) *
+                      parseFloat(baseBuiltUpRate) *
+                      0.05
+                 }
+                </div>
 
-                <div className="text-gray-600">Project Management Cost :{}</div>
+                <div className="text-gray-600">
+                  Project Management Cost :
+                  {
+                  isNaN(parseInt(totalBuiltUpArea)) ||
+                  isNaN(parseFloat(baseBuiltUpRate))
+                    ? ""
+                    : parseInt(totalBuiltUpArea) *
+                      parseFloat(baseBuiltUpRate) *
+                      0.05
+                  }
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div
-          className="w-full flex items-center  bg-gray-100 border-t-2 border-gray-200" 
-        
-        >
-          {" "}
+        <div className="w-full flex items-center  bg-gray-100 border-t-2 border-gray-200">
           Grand Total:
+          {totalLandPrice}
         </div>
       </form>
     </Form>
