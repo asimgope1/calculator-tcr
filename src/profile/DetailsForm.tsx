@@ -75,6 +75,86 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
     form.setValue(fieldName, decrementedValue.toString());
   };
 
+  const calculateLandPrice = (): number | string => {
+    return isNaN(parseInt(totalLandArea)) || isNaN(parseFloat(currentLandRate))
+      ? ""
+      : parseInt(totalLandArea) * parseFloat(currentLandRate);
+  };
+
+  const calculateSubTotal = (): number | string => {
+    return isNaN(parseInt(totalLandArea)) ||
+      isNaN(parseFloat(currentLandRate)) ||
+      isNaN(parseInt(totalBuiltUpArea)) ||
+      isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalLandArea) * parseFloat(currentLandRate) +
+          parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate);
+  };
+
+  const calculateFacingCharge = (): number | string => {
+    return isNaN(parseInt(totalBuiltUpArea)) ||
+      isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
+  };
+
+  const remotenesscharge = (): number | string => {
+    return isNaN(parseInt(totalBuiltUpArea)) ||
+      isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
+  };
+
+  const projectadjustmentcharge = (): number | string => {
+    return isNaN(parseInt(totalBuiltUpArea)) ||
+      isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
+  };
+
+  const unitadjustmentfactor = (): number | string => {
+    return isNaN(parseInt(totalBuiltUpArea)) ||
+      isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
+  };
+
+  const BuildingPrice = (): number | string => {
+    return isNaN(parseInt(totalBuiltUpArea)) ||
+      isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate) * 0.05;
+  };
+
+  const CornerCharge=(): number |string =>{
+
+return isNaN(parseInt(totalBuiltUpArea)) ||
+isNaN(parseFloat(baseBuiltUpRate))
+  ? ""
+  : parseInt(totalBuiltUpArea) *
+    parseFloat(baseBuiltUpRate) *
+    0.05
+    
+  }
+  const FillingCharge=(): number |string =>{
+    return isNaN(parseInt(totalBuiltUpArea)) ||
+    isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalBuiltUpArea) *
+        parseFloat(baseBuiltUpRate) *
+        0.05
+
+  }
+  const ProjectManagementCost =(): number |string =>{
+    return isNaN(parseInt(totalBuiltUpArea)) ||
+    isNaN(parseFloat(baseBuiltUpRate))
+      ? ""
+      : parseInt(totalBuiltUpArea) *
+        parseFloat(baseBuiltUpRate) *
+        0.05
+
+  }
+
   const { BungalowType, facingType, cornerFacing } = formSchema.shape;
 
   const renderDropdownMenu = (fieldName: string, options: string[]) => (
@@ -969,112 +1049,54 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
             <div className="w-1/2 ml-10">
               <div className="flex flex-col justify-between">
                 <div className="text-gray-600">
-                  Land Price:{" "}
-                  {isNaN(parseInt(totalLandArea)) ||
-                  isNaN(parseFloat(currentLandRate))
-                    ? ""
-                    : parseInt(totalLandArea) * parseFloat(currentLandRate)}
+                  Land Price: {calculateLandPrice()}
                 </div>
 
                 <div className="text-gray-600">
-                  Sub Total :
-                  {isNaN(parseInt(totalLandArea)) ||
-                  isNaN(parseFloat(currentLandRate)) ||
-                  isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalLandArea) * parseFloat(currentLandRate) +
-                      parseInt(totalBuiltUpArea) * parseFloat(baseBuiltUpRate)}
+                  Sub Total: {calculateSubTotal()}
                 </div>
 
                 <div className="text-gray-600">
-                  Facing Charge :{" "}
-                  {isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalBuiltUpArea) *
-                      parseFloat(baseBuiltUpRate) *
-                      0.05}
+                  Facing Charge: {calculateFacingCharge()}
                 </div>
 
                 <div className="text-gray-600">
-                  Remoteness Charge :{" "}
-                  {isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalBuiltUpArea) *
-                      parseFloat(baseBuiltUpRate) *
-                      0.05}
+                  Remoteness Charge :{remotenesscharge()}
                 </div>
 
                 <div className="text-gray-600">
-                  Project Adjustment Charge :{" "}
-                  {isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalBuiltUpArea) *
-                      parseFloat(baseBuiltUpRate) *
-                      0.05}
+                  Project Adjustment Charge :{projectadjustmentcharge()}
                 </div>
               </div>
             </div>
             <div className="w-1/2">
               <div className="flex flex-col justify-between">
                 <div className="text-gray-600">
-                  Unit Adjustment Factor :{" "}
-                  {isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalBuiltUpArea) *
-                      parseFloat(baseBuiltUpRate) *
-                      0.05}
+                  Unit Adjustment Factor :{unitadjustmentfactor()}
                 </div>
 
                 <div className="text-gray-600">
-                  Building Price :
-                {
-                  isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalBuiltUpArea) *
-                      parseFloat(baseBuiltUpRate) *
-                      0.05
-                }
+                  Building Price :{BuildingPrice()}
                 </div>
 
                 <div className="text-gray-600">
                   Corner Charge :
-                 {
-                  isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalBuiltUpArea) *
-                      parseFloat(baseBuiltUpRate) *
-                      0.05
-                 }
+                  {
+                    CornerCharge()
+                  }
                 </div>
 
                 <div className="text-gray-600">
                   Filling Charge :
-                 {
-                  isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalBuiltUpArea) *
-                      parseFloat(baseBuiltUpRate) *
-                      0.05
-                 }
+                  {
+                    FillingCharge()
+                  }
                 </div>
 
                 <div className="text-gray-600">
                   Project Management Cost :
                   {
-                  isNaN(parseInt(totalBuiltUpArea)) ||
-                  isNaN(parseFloat(baseBuiltUpRate))
-                    ? ""
-                    : parseInt(totalBuiltUpArea) *
-                      parseFloat(baseBuiltUpRate) *
-                      0.05
+                    ProjectManagementCost()
                   }
                 </div>
               </div>
