@@ -67,22 +67,27 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
     const calculateValues = () => {
       const landPrice = calculateLandPrice(form.getValues("BungalowType"));
       const subTotal = calculateSubTotal();
-      const facingCharge = calculateFacingCharge();
+      const grandTotal = calculateGrandTotal();
 
-      settotalLandPrice(String(landPrice));
       setsubTotal(String(subTotal));
-      const calculatedGrandTotal = calculateGrandTotal();
-      setGrandTotal(String(calculatedGrandTotal));
+      settotalLandPrice(String(landPrice))
+      calculateGrandTotal()
+
+
+
+     
+    
     };
 
     calculateValues();
   }, [form]);
 
   const handleIncrement = (fieldName: string) => {
-    let currentValue = parseFloat(form.getValues(fieldName));
+    let currentValue = parseInt(form.getValues(fieldName));
     currentValue = isNaN(currentValue) ? 0 : currentValue;
-
+  
     let incrementedValue = currentValue;
+  
     if (
       fieldName === "remotenessFactor" ||
       fieldName === "landValueSellFactor" ||
@@ -90,18 +95,20 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
       fieldName === "unitAdjustmentFactor"
     ) {
       incrementedValue =
-        currentValue >= 1 ? 1 : parseFloat((currentValue + 0.1).toFixed(1));
+        currentValue >= 100 ? 100 : currentValue + 1;
     } else {
       incrementedValue = currentValue + 1;
     }
-    form.setValue(fieldName, incrementedValue.toString());
+  
+    form.setValue(fieldName, String(incrementedValue));
   };
-
+  
   const handleDecrement = (fieldName: string) => {
-    let currentValue = parseFloat(form.getValues(fieldName));
+    let currentValue = parseInt(form.getValues(fieldName));
     currentValue = isNaN(currentValue) ? 0 : currentValue;
-
+  
     let decrementedValue = currentValue;
+  
     if (
       fieldName === "remotenessFactor" ||
       fieldName === "landValueSellFactor" ||
@@ -109,12 +116,14 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
       fieldName === "unitAdjustmentFactor"
     ) {
       decrementedValue =
-        currentValue <= 0 ? 0 : parseFloat((currentValue - 0.1).toFixed(1));
+        currentValue <= 0 ? 0 : currentValue - 1;
     } else {
       decrementedValue = currentValue <= 0 ? 0 : currentValue - 1;
     }
-    form.setValue(fieldName, decrementedValue.toString());
+  
+    form.setValue(fieldName, String(decrementedValue));
   };
+  
 
   const calculateLandPrice = (Type: string): number | string => {
     const basePrice =
@@ -142,28 +151,12 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
 
   const calculateGrandTotal = (): number | string => {
     return isNaN(parseInt(totalLandPrice)) ||
-      isNaN(parseFloat(subTotal)) ||
-      isNaN(parseFloat(remotenessFactor)) ||
-      isNaN(parseFloat(projectManagementCost)) ||
-      isNaN(parseFloat(unitFillingDepth)) ||
-      isNaN(parseFloat(developmentCharge)) ||
-      isNaN(parseFloat(adjustmentFactor)) ||
-      isNaN(parseFloat(cornerFactor)) ||
-      isNaN(parseFloat(unitAdjustmentFactor)) ||
-      isNaN(parseFloat(additionalSemiFinishedBuiltup))
+      isNaN(parseFloat(subTotal))
       ? ""
-      : parseInt(totalLandPrice) +
-          parseFloat(subTotal) +
-          parseFloat(remotenessFactor) +
-          parseFloat(projectManagementCost) +
-          parseFloat(unitFillingDepth) +
-          parseFloat(developmentCharge) +
-          parseFloat(adjustmentFactor) +
-          parseFloat(cornerFactor) +
-          parseFloat(unitAdjustmentFactor) +
-          parseFloat(additionalSemiFinishedBuiltup);
-    
+      : parseInt(totalLandPrice) + parseFloat(subTotal);
+
   };
+
 
   const calculateSubTotal = (): number | string => {
     return isNaN(parseInt(totalLandArea)) ||
@@ -1140,6 +1133,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
               );
               settotalLandPrice(data.totalLandPrice);
               setsubTotal(data.subTotal);
+              setGrandTotal(data.grandTotal);
             })}
           >
             Submit
@@ -1200,7 +1194,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
 
         <div className="w-full flex items-center  bg-gray-100 border-t-2 border-gray-200">
           Grand Total:
-          {calculateGrandTotal()}
+          {calculateSubTotal()}
         </div>
       </form>
     </Form>

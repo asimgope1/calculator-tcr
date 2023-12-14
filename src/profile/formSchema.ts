@@ -37,8 +37,8 @@ NumberOfFloors: z.string().refine(value => parseInt(value, 10) > 0, {
 }),
 remotenessFactor: z.string().refine((value) => {
   const parsed = parseFloat(value);
-  return !isNaN(parsed) && parsed >= 0 && parsed <= 1;
-}, { message: 'Remoteness Factor must be a number between 0 and 1.' }),
+  return !isNaN(parsed) && parsed >= 0 && parsed <= 100;
+}, { message: 'Remoteness Factor must be a number between 0 and 100.' }),
 landRateAtPurchase: z.string().refine((value) => {
   const parsed = parseFloat(value);
   return !isNaN(parsed) && parsed >= 1000;
@@ -46,8 +46,8 @@ landRateAtPurchase: z.string().refine((value) => {
 
 landValueSellFactor: z.string().refine((value) => {
   const parsed = parseFloat(value);
-  return !isNaN(parsed) && parsed >= 0 && parsed <= 1;
-}, { message: 'Land Value Sell Factor must be in between 0 and 1.' }),
+  return !isNaN(parsed) && parsed >= 0 && parsed <= 100;
+}, { message: 'Land Value Sell Factor must be in between 0 and 100.' }),
 
 legalCharge: z.string().refine((value) => {
     const parsed = parseFloat(value);
@@ -97,15 +97,15 @@ legalCharge: z.string().refine((value) => {
 
   adjustmentFactor:  z.string().refine((value) => {
   const parsed = parseFloat(value);
-  return !isNaN(parsed) && parsed >= 0 && parsed <= 1;
-}, { message: 'Adjustment Factor must be in between 0 and 1.' }),
+  return !isNaN(parsed) && parsed >= 0 && parsed <= 100;
+}, { message: 'Adjustment Factor must be in between 0 and 100.' }),
 
   cornerFactor: z.string().min(0).max(1, { message: 'Corner Factor must be in between 0 and 1.' }),
 
   unitAdjustmentFactor:z.string().refine((value) => {
   const parsed = parseFloat(value);
-  return !isNaN(parsed) && parsed >= 0 && parsed <= 1;
-}, { message: 'Unit Adjustment Factor must be in between 0 and 1.' }),
+  return !isNaN(parsed) && parsed >= 0 && parsed <= 100;
+}, { message: 'Unit Adjustment Factor must be in between 0 and 100.' }),
 
   cornerFacing: z.enum(['Yes', 'No'], { errorMap: (issue, ctx) => ({ message: 'choose correct option' }) }),
   additionalSemiFinishedBuiltup: z.string().refine((value) => {
