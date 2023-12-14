@@ -78,30 +78,40 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
   const handleIncrement = (fieldName: string) => {
     let currentValue = parseFloat(form.getValues(fieldName));
     currentValue = isNaN(currentValue) ? 0 : currentValue;
-  
+
     let incrementedValue = currentValue;
-    if (fieldName === 'remotenessFactor' || fieldName === 'landValueSellFactor' || fieldName === 'adjustmentFactor' || fieldName === 'unitAdjustmentFactor') {
-      incrementedValue = currentValue >= 1 ? 1 : parseFloat((currentValue + 0.1).toFixed(1));
+    if (
+      fieldName === "remotenessFactor" ||
+      fieldName === "landValueSellFactor" ||
+      fieldName === "adjustmentFactor" ||
+      fieldName === "unitAdjustmentFactor"
+    ) {
+      incrementedValue =
+        currentValue >= 1 ? 1 : parseFloat((currentValue + 0.1).toFixed(1));
     } else {
       incrementedValue = currentValue + 1;
     }
     form.setValue(fieldName, incrementedValue.toString());
   };
-  
+
   const handleDecrement = (fieldName: string) => {
     let currentValue = parseFloat(form.getValues(fieldName));
     currentValue = isNaN(currentValue) ? 0 : currentValue;
-  
+
     let decrementedValue = currentValue;
-    if (fieldName === 'remotenessFactor' || fieldName === 'landValueSellFactor' || fieldName === 'adjustmentFactor' || fieldName === 'unitAdjustmentFactor') {
-      decrementedValue = currentValue <= 0 ? 0 : parseFloat((currentValue - 0.1).toFixed(1));
+    if (
+      fieldName === "remotenessFactor" ||
+      fieldName === "landValueSellFactor" ||
+      fieldName === "adjustmentFactor" ||
+      fieldName === "unitAdjustmentFactor"
+    ) {
+      decrementedValue =
+        currentValue <= 0 ? 0 : parseFloat((currentValue - 0.1).toFixed(1));
     } else {
       decrementedValue = currentValue <= 0 ? 0 : currentValue - 1;
     }
     form.setValue(fieldName, decrementedValue.toString());
   };
-  
-
 
   const calculateLandPrice = (Type: string): number | string => {
     const basePrice =
@@ -235,7 +245,7 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
             key={index}
             onClick={() => {
               form.setValue(fieldName, option);
-              updateCornerFactor(option); 
+              updateCornerFactor(option);
             }}
           >
             {option}
