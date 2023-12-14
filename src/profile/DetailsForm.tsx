@@ -53,6 +53,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
     useState("");
   const [totalLandPrice, settotalLandPrice] = useState("");
   const [subTotal, setsubTotal] = useState("");
+  const [grandTotal, setGrandTotal] = useState("");
+
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -69,7 +71,8 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
 
       settotalLandPrice(String(landPrice));
       setsubTotal(String(subTotal));
-      calculateGrandTotal();
+      const calculatedGrandTotal = calculateGrandTotal();
+      setGrandTotal(String(calculatedGrandTotal));
     };
 
     calculateValues();
@@ -138,24 +141,30 @@ const DetailsForm: React.FC<DetailsFormProps> = ({ onSubmit }) => {
   };
 
   const calculateGrandTotal = (): number | string => {
-    const subTotalValue = parseFloat(subTotal);
-    const projectAdjustmentChargeValue = parseFloat(developmentCharge);
-    const unitAdjustmentFactorValue = parseFloat(unitAdjustmentFactor);
-
-    if (
-      !isNaN(subTotalValue) &&
-      !isNaN(projectAdjustmentChargeValue) &&
-      !isNaN(unitAdjustmentFactorValue)
-    ) {
-      return (
-        subTotalValue + projectAdjustmentChargeValue + unitAdjustmentFactorValue
-      );
-    } else {
-      return "";
-    }
+    return isNaN(parseInt(totalLandPrice)) ||
+      isNaN(parseFloat(subTotal)) ||
+      isNaN(parseFloat(remotenessFactor)) ||
+      isNaN(parseFloat(projectManagementCost)) ||
+      isNaN(parseFloat(unitFillingDepth)) ||
+      isNaN(parseFloat(developmentCharge)) ||
+      isNaN(parseFloat(adjustmentFactor)) ||
+      isNaN(parseFloat(cornerFactor)) ||
+      isNaN(parseFloat(unitAdjustmentFactor)) ||
+      isNaN(parseFloat(additionalSemiFinishedBuiltup))
+      ? ""
+      : parseInt(totalLandPrice) +
+          parseFloat(subTotal) +
+          parseFloat(remotenessFactor) +
+          parseFloat(projectManagementCost) +
+          parseFloat(unitFillingDepth) +
+          parseFloat(developmentCharge) +
+          parseFloat(adjustmentFactor) +
+          parseFloat(cornerFactor) +
+          parseFloat(unitAdjustmentFactor) +
+          parseFloat(additionalSemiFinishedBuiltup);
+    
   };
 
-  const grandTotal = calculateGrandTotal();
   const calculateSubTotal = (): number | string => {
     return isNaN(parseInt(totalLandArea)) ||
       isNaN(parseFloat(currentLandRate)) ||
